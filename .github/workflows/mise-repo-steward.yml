@@ -87,7 +87,7 @@ jobs:
             case "$BODY_LOWER" in
               *"/mise issue-review"*|*"/mise review"*|*"/mise triage"*) MODE="issues-review" ;;
               *"/mise merge-pr"*|*"/mise merge"*) MODE="merge-pr" ;;
-              *"/mise branch-correct"*|*"/mise branch-corrections"*|*"/mise suggest-branch"*) MODE="branch-corrections" ;;
+              *"/mise branch-corrections"*|*"/mise branch-correct"*|*"/mise suggest-branch"*) MODE="branch-corrections" ;;
               *"/mise comments-commits"*|*"/mise commit-note"*|*"/mise digest"*) MODE="comments-commits" ;;
               *"/mise repo-clean"*|*"/mise clean"*) MODE="repo-clean" ;;
               *) MODE="none" ;;
@@ -113,9 +113,11 @@ jobs:
             *) MODE="none" ;;
           esac
 
-          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
-          echo "target_number=$TARGET_NUMBER" >> "$GITHUB_OUTPUT"
-          echo "apply_changes=$APPLY_CHANGES" >> "$GITHUB_OUTPUT"
+          {
+            echo "mode=$MODE"
+            echo "target_number=$TARGET_NUMBER"
+            echo "apply_changes=$APPLY_CHANGES"
+          } >> "$GITHUB_OUTPUT"
 
   issues_review:
     name: 01 Issues and review steward
